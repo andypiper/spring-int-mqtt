@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-integration:1.0.0.RC1")
-    compile("org.springframework.integration:spring-integration-twitter:3.0.0.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-integration:1.0.0.RC2")
+    compile("org.springframework.integration:spring-integration-twitter:4.0.0.M3")
     compile("org.springframework.integration:spring-integration-mqtt:4.0.0.M3")
     testCompile("junit:junit:4.11")
 }

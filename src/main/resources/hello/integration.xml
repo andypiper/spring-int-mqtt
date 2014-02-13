@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:int="http://www.springframework.org/schema/integration"
-    xmlns:mqtt="http://www.springframework.org/schema/integration/mqtt"
+    xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
     xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-        http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt-4.0.xsd
+        http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
 
@@ -20,12 +20,15 @@
             expression="payload.fromUser + ': ' + payload.text + @newline"
             output-channel="mqtt-publish"/>
 
-    <mqtt:outbound-channel-adapter id="mqtt-publish"
-            client-id="foo"
+    <int-mqtt:outbound-channel-adapter id="mqtt-publish"
+            client-id="spring-foo"
+            client-factory="clientFactory"
+            auto-startup="false"
             url="tcp://iot.eclipse.org:1883"
             default-qos="0"
             default-retained="true"
             default-topic="tweets/spring-integration"
-            channel="target" />
+            channel="tweets" />
 
+    <bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory" />
 </beans>
