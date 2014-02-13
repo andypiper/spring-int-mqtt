@@ -1,0 +1,6 @@
+# Created by http://www.gitignore.io
+
+### Gradle ###
+.gradle
+build/
+
