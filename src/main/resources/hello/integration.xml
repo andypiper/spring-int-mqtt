@@ -17,18 +17,17 @@
 
     <int:transformer
             input-channel="tweets"
-            expression="payload.fromUser + ': ' + payload.text + @newline"
+            expression="'@' + payload.fromUser + ': ' + payload.text"
             output-channel="mqtt-publish"/>
 
     <int-mqtt:outbound-channel-adapter id="mqtt-publish"
             client-id="spring-foo"
             client-factory="clientFactory"
-            auto-startup="false"
+            auto-startup="true"
             url="tcp://iot.eclipse.org:1883"
             default-qos="0"
             default-retained="true"
-            default-topic="tweets/spring-integration"
-            channel="tweets" />
+            default-topic="tweets/spring-integration" />
 
     <bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory" />
 </beans>
