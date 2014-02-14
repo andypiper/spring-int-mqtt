@@ -29,5 +29,4 @@
             default-retained="true"
             default-topic="tweets/spring-integration" />
 
-    <bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory" />
 </beans>
