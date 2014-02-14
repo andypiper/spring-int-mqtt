@@ -36,6 +36,7 @@ public class Application {
 
     @Bean
     public DefaultMqttPahoClientFactory clientFactory() {
+        // could define username and password for broker connection here
         return new DefaultMqttPahoClientFactory();
     }
 

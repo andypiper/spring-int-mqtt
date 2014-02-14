@@ -4,24 +4,28 @@
     xmlns:int="http://www.springframework.org/schema/integration"
     xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
+    xmlns:file="http://www.springframework.org/schema/integration/file"
     xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
         http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt.xsd
+        http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
+
+<!-- these elements define a flow Twitter search->transform->MQTT publish -->
 
     <twitter:search-inbound-channel-adapter id="tweets"
             query="#mqtt"
             twitter-template="twitterTemplate">
-        <int:poller fixed-rate="5000"/>
+        <int:poller fixed-rate="5000" />
     </twitter:search-inbound-channel-adapter>
 
     <int:transformer
             input-channel="tweets"
             expression="'@' + payload.fromUser + ': ' + payload.text"
-            output-channel="mqtt-publish"/>
+            output-channel="mqtt-publish" />
 
     <int-mqtt:outbound-channel-adapter id="mqtt-publish"
-            client-id="spring-foo"
+            client-id="spring-foo-1"
             client-factory="clientFactory"
             auto-startup="true"
             url="tcp://iot.eclipse.org:1883"
@@ -29,4 +33,25 @@
             default-retained="true"
             default-topic="tweets/spring-integration" />
 
+<!-- these elements define a flow MQTT subscribe->transform->File -->
+<!--
+    <int-mqtt:message-driven-channel-adapter id="oneTopicAdapter"
+        client-id="spring-foo-2"
+        client-factory="clientFactory"
+        auto-startup="true"
+        url="tcp://localhost:1883"
+        topics="inbound"
+        send-timeout="123" />
+
+    <int:transformer id="convert"
+        input-channel="oneTopicAdapter"
+        expression="mqtt_topic + ': ' + payload.text + @newline"
+        output-channel="to-file" />
+
+    <file:outbound-channel-adapter id="to-file"
+        mode="APPEND"
+        charset="UTF-8"
+        directory="./si"
+        filename-generator-expression="'MQTT-INPUT'" />
+-->
 </beans>
