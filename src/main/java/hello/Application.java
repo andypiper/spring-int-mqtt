@@ -10,6 +10,10 @@ import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 @Configuration
 @ImportResource("/hello/integration.xml")
@@ -22,6 +26,12 @@ public class Application {
     @Bean
     public String newline() {
         return System.getProperty("line.separator");
+    }
+
+    @Bean
+    public String tstamp() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        return formatter.format(new Date());
     }
 
     @Bean
