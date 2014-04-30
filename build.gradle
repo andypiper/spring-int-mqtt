@@ -1,10 +1,10 @@
 buildscript {
     repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
+        maven { url "http://repo.spring.io/libs-release" }
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC4")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
     }
 }
 apply plugin: 'java'
@@ -14,19 +14,19 @@ apply plugin: 'spring-boot'
 
 jar {
     baseName = 'mqtt-integration'
-    version =  '0.3.0'
+    version =  '0.4.0'
 }
 
 repositories {
     mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://repo.spring.io/libs-release" }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-integration:1.0.0.RC4")
-    compile("org.springframework.integration:spring-integration-twitter:4.0.0.M3")
-    compile("org.springframework.integration:spring-integration-mqtt:4.0.0.M3")
-    compile("org.springframework.integration:spring-integration-file:4.0.0.BUILD-SNAPSHOT")
+    compile("org.springframework.boot:spring-boot-starter-integration:1.0.2.RELEASE")
+    compile("org.springframework.integration:spring-integration-twitter:4.0.0.RELEASE")
+    compile("org.springframework.integration:spring-integration-mqtt:4.0.0.RELEASE")
+    compile("org.springframework.integration:spring-integration-file:4.0.0.RELEASE")
     testCompile("junit:junit:4.11")
 }
 

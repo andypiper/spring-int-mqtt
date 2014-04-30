@@ -19,8 +19,10 @@ Extends the guide example by:
 The Spring Integration app requires that clientId and clientSecret (Twitter app values) are set in the environment, e.g.:
 
 ```
-java -DclientId=YourClientId -DclientSecret=YourClientSecret -jar build/libs/mqtt-integration-0.2.0.jar
+java -DclientId=YourClientId -DclientSecret=YourClientSecret -jar build/libs/mqtt-integration-0.4.0.jar
 ```
+
+To obtain the `clientId` and `clientSecret` values, create an application on [the Twitter Application Management](http://apps.twitter.com) page, and use the API key and API secret values in your environment.
 
 *outbound MQTT*
 
